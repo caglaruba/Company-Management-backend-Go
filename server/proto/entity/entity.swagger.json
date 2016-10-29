@@ -1,0 +1,383 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/entity/entity.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/entity": {
+      "get": {
+        "operationId": "GetEntities",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/entityEntityListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "EntityService"
+        ]
+      },
+      "post": {
+        "operationId": "CreateEntity",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/entityEntityResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/entityEntity"
+            }
+          }
+        ],
+        "tags": [
+          "EntityService"
+        ]
+      }
+    },
+    "/v1/entity/{id}": {
+      "get": {
+        "operationId": "GetLatestEntity",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/entityEntityResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EntityService"
+        ]
+      },
+      "post": {
+        "operationId": "UpdateEntity",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/entityEntityResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/entityEntity"
+            }
+          }
+        ],
+        "tags": [
+          "EntityService"
+        ]
+      }
+    },
+    "/v1/entity_revs/{id}": {
+      "get": {
+        "operationId": "GetEntityRevisions",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/entityEntityListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EntityService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "commonAddress": {
+      "type": "object",
+      "properties": {
+        "address_line_1": {
+          "type": "string"
+        },
+        "address_line_2": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "postal_code": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      }
+    },
+    "commonIDRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "commonMetaResponse": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "error": {
+          "type": "string"
+        },
+        "status_code": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "entityEntity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "common_name": {
+          "type": "string"
+        },
+        "company_id": {
+          "type": "string"
+        },
+        "rev": {
+          "type": "string",
+          "format": "int64"
+        },
+        "latest": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "created_by_username": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "given_name": {
+          "type": "string"
+        },
+        "middle_name": {
+          "type": "string"
+        },
+        "family_name": {
+          "type": "string"
+        },
+        "name_prefix": {
+          "type": "string"
+        },
+        "name_suffix": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "birthplace": {
+          "type": "string"
+        },
+        "birthcountry": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "residential_address": {
+          "$ref": "#/definitions/commonAddress"
+        },
+        "kvk": {
+          "type": "string"
+        },
+        "legal_form": {
+          "type": "string"
+        },
+        "registered_name": {
+          "type": "string"
+        },
+        "registered_office": {
+          "type": "string"
+        },
+        "date_of_registration": {
+          "type": "string"
+        },
+        "date_of_establishment": {
+          "type": "string"
+        },
+        "trade_name": {
+          "type": "string"
+        },
+        "visiting_address": {
+          "$ref": "#/definitions/commonAddress"
+        },
+        "registered_address": {
+          "$ref": "#/definitions/commonAddress"
+        },
+        "rsin": {
+          "type": "string"
+        },
+        "issued_capital": {
+          "type": "string"
+        },
+        "paidup_capital": {
+          "type": "string"
+        },
+        "is_bfi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "bfi_number": {
+          "type": "string"
+        },
+        "directors": {
+          "$ref": "#/definitions/entityEntityLink"
+        },
+        "proxyholders": {
+          "$ref": "#/definitions/entityEntityLink"
+        },
+        "trustees": {
+          "$ref": "#/definitions/entityEntityLink"
+        },
+        "shareholders": {
+          "$ref": "#/definitions/entityEntityLink"
+        }
+      }
+    },
+    "entityEntityLink": {
+      "type": "object",
+      "properties": {
+        "entity_id": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string"
+        }
+      }
+    },
+    "entityEntityListRequest": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "page": {
+          "type": "string",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "entityEntityListResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/commonMetaResponse"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/entityEntity"
+          }
+        }
+      }
+    },
+    "entityEntityResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/commonMetaResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/entityEntity"
+        }
+      }
+    }
+  }
+}

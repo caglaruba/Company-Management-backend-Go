@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "common";
+
+package grpc.gateway.common;
+import "google/api/annotations.proto";
+
+message IDRequest {
+    string id = 1;
+}
+
+message MetaResponse {
+    bool ok = 1;
+    string error = 2;
+    int32 status_code = 3;
+}
+
+message CommonResponse {
+    MetaResponse meta = 1;
+}
+
+message IDResponse {
+    MetaResponse meta = 1;
+    string id = 2;
+}
+
+message Address {
+    string address_line_1 = 1;
+    string address_line_2 = 2;
+    string city = 3;
+    string region = 4;
+    string postal_code = 5;
+    string country = 6;
+}

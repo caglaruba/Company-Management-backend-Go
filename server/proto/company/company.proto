@@ -1,0 +1,59 @@
+syntax = "proto3";
+option go_package = "company";
+package grpc.gateway.company;
+
+import "google/api/annotations.proto";
+import "proto/common/common.proto";
+import "google/protobuf/empty.proto";
+
+
+message Company {
+    string id = 1;
+    bool is_enabled = 2;
+    string name = 3;
+}
+
+message CompanyListResponse {
+    grpc.gateway.common.MetaResponse meta = 1;
+    repeated Company data = 2;
+}
+
+message CompanyResponse {
+    grpc.gateway.common.MetaResponse meta = 1;
+    Company data = 2;
+}
+
+service CompanyService {
+    rpc CreateCompany (Company) returns (grpc.gateway.common.IDResponse) {
+        option (google.api.http) = {
+          post: "/v1/company"
+          body: "*"
+        };
+    }
+
+    rpc UpdateCompany (Company) returns (grpc.gateway.common.CommonResponse) {
+        option (google.api.http) = {
+          post: "/v1/company/{id}"
+          body: "*"
+        };
+    }
+
+    rpc GetCompany (grpc.gateway.common.IDRequest) returns (CompanyResponse) {
+        option (google.api.http) = {
+          get: "/v1/company/{id}"
+        };
+    }
+
+    rpc GetCompanies (google.protobuf.Empty) returns (CompanyListResponse) {
+        option (google.api.http) = {
+          get: "/v1/company"
+        };
+    }
+
+    rpc DeleteCompany (grpc.gateway.common.IDRequest) returns (grpc.gateway.common.CommonResponse) {
+        option (google.api.http) = {
+          delete: "/v1/company/{id}"
+        };
+    }
+
+}

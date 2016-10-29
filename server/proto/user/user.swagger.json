@@ -1,0 +1,355 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/user/user.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/confirm-email/{email_code}": {
+      "post": {
+        "operationId": "ConfirmEmail",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/userUserResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email_code",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userUser"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/login": {
+      "post": {
+        "operationId": "Login",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/userLoginResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userLoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/user": {
+      "get": {
+        "operationId": "GetUsers",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/userUserListResponse"
+            }
+          }
+        },
+        "tags": [
+          "UserService"
+        ]
+      },
+      "post": {
+        "operationId": "CreateUser",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/userUserResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userUser"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/user/{id}": {
+      "get": {
+        "operationId": "GetUser",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/userUserResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteUser",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/commonCommonResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      },
+      "post": {
+        "operationId": "UpdateUser",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/userUserResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userUser"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/user_by_company/{id}": {
+      "get": {
+        "operationId": "GetUserByCompany",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/userUserListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "commonCommonResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/commonMetaResponse"
+        }
+      }
+    },
+    "commonIDRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "commonMetaResponse": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "error": {
+          "type": "string"
+        },
+        "status_code": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protobufEmpty": {
+      "type": "object",
+      "description": "service Foo {\n      rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n    }\n\nThe JSON representation for `Empty` is empty JSON object `{}`.",
+      "title": "A generic empty message that you can re-use to avoid defining duplicated\nempty messages in your APIs. A typical example is to use it as the request\nor the response type of an API method. For instance:"
+    },
+    "userLoginRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "sms_code": {
+          "type": "string"
+        }
+      }
+    },
+    "userLoginResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/commonMetaResponse"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "userUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "company_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "is_admin": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "is_enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "is_confirmed": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "email_code": {
+          "type": "string"
+        },
+        "sms_code": {
+          "type": "string"
+        },
+        "email_sent_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sms_sent_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "userUserListResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/commonMetaResponse"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userUser"
+          }
+        }
+      }
+    },
+    "userUserResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/commonMetaResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/userUser"
+        }
+      }
+    }
+  }
+}

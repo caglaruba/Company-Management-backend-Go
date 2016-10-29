@@ -1,0 +1,225 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/company/company.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/company": {
+      "get": {
+        "operationId": "GetCompanies",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/companyCompanyListResponse"
+            }
+          }
+        },
+        "tags": [
+          "CompanyService"
+        ]
+      },
+      "post": {
+        "operationId": "CreateCompany",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/commonIDResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/companyCompany"
+            }
+          }
+        ],
+        "tags": [
+          "CompanyService"
+        ]
+      }
+    },
+    "/v1/company/{id}": {
+      "get": {
+        "operationId": "GetCompany",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/companyCompanyResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CompanyService"
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteCompany",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/commonCommonResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CompanyService"
+        ]
+      },
+      "post": {
+        "operationId": "UpdateCompany",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/commonCommonResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/companyCompany"
+            }
+          }
+        ],
+        "tags": [
+          "CompanyService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "commonCommonResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/commonMetaResponse"
+        }
+      }
+    },
+    "commonIDRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "commonIDResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/commonMetaResponse"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "commonMetaResponse": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "error": {
+          "type": "string"
+        },
+        "status_code": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "companyCompany": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "is_enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "companyCompanyListResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/commonMetaResponse"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/companyCompany"
+          }
+        }
+      }
+    },
+    "companyCompanyResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/commonMetaResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/companyCompany"
+        }
+      }
+    },
+    "protobufEmpty": {
+      "type": "object",
+      "description": "service Foo {\n      rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n    }\n\nThe JSON representation for `Empty` is empty JSON object `{}`.",
+      "title": "A generic empty message that you can re-use to avoid defining duplicated\nempty messages in your APIs. A typical example is to use it as the request\nor the response type of an API method. For instance:"
+    }
+  }
+}

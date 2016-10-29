@@ -1,0 +1,103 @@
+syntax = "proto3";
+option go_package = "entity";
+package grpc.gateway.entity;
+
+import "google/api/annotations.proto";
+import "proto/common/common.proto";
+
+message EntityLink {
+    string entity_id = 1;
+    string amount = 2;
+}
+
+message Entity {
+    string id = 1;
+    string common_name = 2;
+    string company_id = 3;
+    int64 rev = 4;
+    bool latest = 5;
+    string created_by_username = 6;
+    int64 created_at = 7;
+    string created_by = 8;
+
+    string type = 9;
+    string given_name = 10;
+    string middle_name = 11;
+    string family_name = 12;
+    string name_prefix = 13;
+    string name_suffix = 14;
+    string gender = 15;
+    string birthday = 16;
+    string birthplace = 17;
+    string birthcountry = 18;
+    string nationality = 19;
+    grpc.gateway.common.Address residential_address = 20;
+    string kvk = 21;
+    string legal_form = 22;
+    string registered_name = 23;
+    string registered_office = 24;
+    string date_of_registration = 25;
+    string date_of_establishment = 26;
+    string trade_name = 27;
+    grpc.gateway.common.Address visiting_address = 28;
+    grpc.gateway.common.Address registered_address = 29;
+    string rsin = 34;
+    string issued_capital = 35;
+    string paidup_capital = 36;
+    bool is_bfi = 37;
+    string bfi_number = 38;
+    EntityLink directors = 39;
+    EntityLink proxyholders = 40;
+    EntityLink trustees = 41;
+    EntityLink shareholders = 42;
+}
+
+message EntityListResponse {
+    grpc.gateway.common.MetaResponse meta = 1;
+    repeated Entity data = 2;
+}
+
+message EntityResponse {
+    grpc.gateway.common.MetaResponse meta = 1;
+    Entity data = 2;
+}
+
+message EntityListRequest {
+    string type = 1;
+    int64  page = 2;
+    int64  limit = 3;
+}
+
+service EntityService {
+    rpc CreateEntity (Entity) returns (EntityResponse) {
+        option (google.api.http) = {
+          post: "/v1/entity"
+          body: "*"
+        };
+    }
+
+    rpc UpdateEntity (Entity) returns (EntityResponse) {
+        option (google.api.http) = {
+          post: "/v1/entity/{id}"
+          body: "*"
+        };
+    }
+
+    rpc GetEntities (EntityListRequest) returns (EntityListResponse) {
+        option (google.api.http) = {
+          get: "/v1/entity"
+        };
+    }
+
+    rpc GetLatestEntity (grpc.gateway.common.IDRequest) returns (EntityResponse) {
+        option (google.api.http) = {
+          get: "/v1/entity/{id}"
+        };
+    }
+
+    rpc GetEntityRevisions (grpc.gateway.common.IDRequest) returns (EntityListResponse) {
+        option (google.api.http) = {
+          get: "/v1/entity_revs/{id}"
+        };
+    }
+}

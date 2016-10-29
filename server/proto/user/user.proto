@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+option go_package = "user";
+
+package grpc.gateway.user;
+
+import "google/api/annotations.proto";
+import "proto/common/common.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+message LoginResponse {
+    grpc.gateway.common.MetaResponse meta = 1;
+    string token = 2;
+}
+
+message UserListResponse {
+    grpc.gateway.common.MetaResponse meta = 1;
+    repeated User data = 2;
+}
+
+message UserResponse {
+    grpc.gateway.common.MetaResponse meta = 1;
+    User data = 2;
+}
+
+message LoginRequest {
+    string email = 1;
+    string password = 2;
+    string sms_code = 3;
+}
+
+message SMSConfirmationRequest {
+    string code = 1;
+}
+
+
+message User {
+    string id = 1;
+    string company_id = 2;
+    string name = 4;
+    string email = 5;
+    string password = 6;
+    string phone = 7;
+    bool is_admin = 3;
+    bool is_enabled = 8;
+    bool is_confirmed = 9;
+    string email_code = 10;
+    string sms_code = 11;
+    google.protobuf.Timestamp email_sent_at=12;
+    google.protobuf.Timestamp sms_sent_at=13;
+}
+
+service UserService {
+    rpc Login (LoginRequest) returns (LoginResponse) {
+        option (google.api.http) = {
+          post: "/v1/login"
+          body: "*"
+        };
+    }
+
+    rpc CreateUser (User) returns (UserResponse) {
+        option (google.api.http) = {
+          post: "/v1/user"
+          body: "*"
+        };
+    }
+
+    rpc ConfirmEmail(User) returns (UserResponse) {
+        option (google.api.http) = {
+            post: "/v1/confirm-email/{email_code}"
+            body: "*"
+        };
+    }
+
+    rpc UpdateUser (User) returns (UserResponse) {
+        option (google.api.http) = {
+          post: "/v1/user/{id}"
+          body: "*"
+        };
+    }
+
+    rpc GetUser (grpc.gateway.common.IDRequest) returns (UserResponse) {
+        option (google.api.http) = {
+          get: "/v1/user/{id}"
+        };
+    }
+
+    rpc DeleteUser (grpc.gateway.common.IDRequest) returns (grpc.gateway.common.CommonResponse) {
+        option (google.api.http) = {
+          delete: "/v1/user/{id}"
+        };
+    }
+
+    rpc GetUsers (google.protobuf.Empty) returns (UserListResponse) {
+        option (google.api.http) = {
+          get: "/v1/user"
+        };
+    }
+
+    rpc GetUserByCompany (grpc.gateway.common.IDRequest) returns (UserListResponse) {
+        option (google.api.http) = {
+          get: "/v1/user_by_company/{id}"
+        };
+    }
+
+
+}
